@@ -1,0 +1,4 @@
+buildX86/
+buildArm/
+build/
+.DS_Store

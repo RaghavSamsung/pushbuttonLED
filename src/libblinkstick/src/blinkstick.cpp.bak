@@ -1,0 +1,53 @@
+#include <unistd.h>
+#include "libblinkstick.h"
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdarg.h>
+
+#include <unistd.h>
+
+
+int main(int argc, char** argv) {
+  SSIC_LED led;
+  int count = 0;
+  try {
+    led.init();
+  
+    while(1)
+      {
+	for(uint32_t i = 0; i < 8; i++){
+	  led.set_led_color(i,rand() % 256,rand() % 256,rand() % 256);
+	  usleep(225000);
+	  led.turn_off(i);
+	  usleep(225000);
+	    
+	}
+	
+	for(uint32_t i = 7; i > 0; i--){
+	  
+	  led.set_led_color(i,rand() % 256,rand() % 256,rand() % 256);
+	  usleep(225000);
+	  led.turn_off(i);
+	  usleep(225000);
+	  }
+	std::cout << "loop " << count++ << std::endl;
+      }
+    //led.turn_off(1);
+    //led.turn_off(2);
+  }
+  catch(SSIC_LED_EXCEPTION &error){
+    std::cout << error.getmsg() << std::endl;
+    exit(EXIT_FAILURE);
+  }
+  catch(const ::std::exception& error){
+    std::cout << error.what() << "at " << __LINE__ << " in " << __FILE__;
+    exit(EXIT_FAILURE);
+  }
+  catch(...){
+    std::cout << "Unhandled Exception" << std::endl;
+    exit(EXIT_FAILURE);
+  }
+    return EXIT_SUCCESS;
+}

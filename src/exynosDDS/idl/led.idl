@@ -1,0 +1,7 @@
+struct Indicator{
+    string indicator_color;
+};
+
+struct AutoReady{
+    boolean auto_ready;
+};
